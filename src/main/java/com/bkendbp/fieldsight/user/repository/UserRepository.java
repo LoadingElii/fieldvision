@@ -1,4 +1,10 @@
-package com.bkendBp.fieldVision.user.repository;
+package com.bkendbp.fieldsight.user.repository;
 
-public interface UserRepository {
+import com.bkendbp.fieldsight.user.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+
 }

@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.auth.service;
+package com.bkendbp.fieldsight.auth.service;
 
 public class AuthService {
 }

@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.game.controller;
+package com.bkendbp.fieldsight.game.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

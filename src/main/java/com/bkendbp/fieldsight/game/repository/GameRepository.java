@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.game.repository;
+package com.bkendbp.fieldsight.game.repository;
 
 public interface GameRepository {
 }

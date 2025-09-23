@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.history.repository;
+package com.bkendbp.fieldsight.history.repository;
 
 public interface HistoryRepository {
 }

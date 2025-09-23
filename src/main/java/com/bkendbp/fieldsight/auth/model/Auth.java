@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.auth.model;
+package com.bkendbp.fieldsight.auth.model;
 
 public class Auth {
 }

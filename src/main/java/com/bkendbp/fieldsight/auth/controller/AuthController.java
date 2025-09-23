@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.auth.controller;
+package com.bkendbp.fieldsight.auth.controller;
 
 public class AuthController {
 }

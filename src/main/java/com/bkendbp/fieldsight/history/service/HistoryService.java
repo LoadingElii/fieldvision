@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.history.service;
+package com.bkendbp.fieldsight.history.service;
 
 public class HistoryService {
 }

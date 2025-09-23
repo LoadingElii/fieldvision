@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.game.service;
+package com.bkendbp.fieldsight.game.service;
 
 public class GameService {
 }

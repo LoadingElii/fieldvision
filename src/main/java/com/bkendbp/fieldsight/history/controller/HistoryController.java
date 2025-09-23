@@ -1,4 +1,4 @@
-package com.bkendBp.fieldVision.history.controller;
+package com.bkendbp.fieldsight.history.controller;
 
 public class HistoryController {
 }
