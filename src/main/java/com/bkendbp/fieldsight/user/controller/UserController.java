@@ -1,6 +1,7 @@
 package com.bkendbp.fieldsight.user.controller;
 
 import com.bkendbp.fieldsight.user.model.User;
+import com.bkendbp.fieldsight.user.model.UserDto;
 import com.bkendbp.fieldsight.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -21,28 +22,30 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.valueOf(200));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getUserById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id) {
+        return new ResponseEntity<UserDto>(userService.getUserById(id), HttpStatus.valueOf(200));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
+    public ResponseEntity<UserDto> createUser(@RequestBody User user) {
+        return new ResponseEntity<>(userService.createUser(user), HttpStatus.valueOf(201));
     }
 
-    @PutMapping("/update/{id}")
-    public void updateUserById(@PathVariable("id") Long id, User user) {
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<UserDto> updateUserById(@PathVariable("id") Long id, @RequestBody UserDto user) {
+        System.out.println("This is the user: " + user.getEmail() + "  " + user.getUsername());
+        return new ResponseEntity<>(userService.updateUserById(id, user), HttpStatus.valueOf(200));
 
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.deleteUserById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.deleteUserById(id), HttpStatus.valueOf(200));
 
     }
 

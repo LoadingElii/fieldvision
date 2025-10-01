@@ -1,7 +1,10 @@
 package com.bkendbp.fieldsight.user.service;
 
+import com.bkendbp.fieldsight.mapper.UserMapper;
 import com.bkendbp.fieldsight.user.model.User;
+import com.bkendbp.fieldsight.user.model.UserDto;
 import com.bkendbp.fieldsight.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,29 +13,43 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private Long id;
+    private UserDto user;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toUserDto)
+                .toList();
     }
 
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public UserDto getUserById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return UserMapper.toUserDto(user);
     }
 
-    public String createUser(User user) {
-        userRepository.save(user);
-        return "Success";
+    public UserDto createUser(User user) {
+        User newUser = userRepository.save(user);
+
+        return UserMapper.toUserDto(newUser);
     }
 
-    public void updateUserById(Long id, User user) {
-        Optional<User> userToUpdate = userRepository.findById(id);
+    public UserDto updateUserById(Long id, UserDto user) {
+        User userToUpdate = userRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setEmail(user.getEmail());
+        User savedUpdatedUser = userRepository.save(userToUpdate);
 
+        return UserMapper.toUserDto(savedUpdatedUser);
     }
 
     public String deleteUserById(Long id) {
