@@ -17,4 +17,16 @@ public class UserMapper {
         return UserDtoFromUser;
 
     }
+    public static User toUser(UserDto userDto) {
+        if(userDto == null) {
+            return null;
+        }
+        User UserFromUserDto = new User();
+        UserFromUserDto.setUsername(userDto.getUsername());
+        UserFromUserDto.setEmail(userDto.getEmail());
+        UserFromUserDto.setPassword(userDto.getPassword());
+
+        return UserFromUserDto;
+
+    }
 }

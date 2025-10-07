@@ -3,9 +3,9 @@ package com.bkendbp.fieldsight.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String message){
+@ResponseStatus(HttpStatus.CONFLICT)
+public class ResourceAlreadyExistException extends RuntimeException {
+    public ResourceAlreadyExistException(String message) {
         super(message);
     }
 }

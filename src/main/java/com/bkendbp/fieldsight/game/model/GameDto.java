@@ -1,21 +1,14 @@
 package com.bkendbp.fieldsight.game.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "games")
-public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class GameDto {
     private Long id;
+    @JsonIgnore
     private Long externalGameId;
     private String homeTeam;
     private String awayTeam;

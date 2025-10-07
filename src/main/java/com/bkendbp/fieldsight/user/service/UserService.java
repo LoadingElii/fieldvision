@@ -1,5 +1,7 @@
 package com.bkendbp.fieldsight.user.service;
 
+import com.bkendbp.fieldsight.exception.EmailAlreadyExistException;
+import com.bkendbp.fieldsight.exception.ResourceNotFoundException;
 import com.bkendbp.fieldsight.mapper.UserMapper;
 import com.bkendbp.fieldsight.user.model.User;
 import com.bkendbp.fieldsight.user.model.UserDto;
@@ -23,6 +25,9 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
+        if(userRepository.findAll().isEmpty()) {
+            throw new ResourceNotFoundException("No users exist.");
+        }
         return userRepository.findAll()
                 .stream()
                 .map(UserMapper::toUserDto)
@@ -31,29 +36,38 @@ public class UserService {
 
     public UserDto getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
-
+                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " does not exist."));
         return UserMapper.toUserDto(user);
     }
 
-    public UserDto createUser(User user) {
-        User newUser = userRepository.save(user);
+    public UserDto createUser(UserDto user) {
+        if(userRepository.existsByEmail(user.getEmail())) {
+            throw new EmailAlreadyExistException("User already exist with email: " + user.getEmail() +".");
+        }
+
+        User newUser = userRepository.save(UserMapper.toUser(user));
 
         return UserMapper.toUserDto(newUser);
     }
 
     public UserDto updateUserById(Long id, UserDto user) {
         User userToUpdate = userRepository.findById(id)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " does not exist."));
+        if(user.getPassword() != null) {
+           userToUpdate.setPassword(user.getPassword());
+        }
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setEmail(user.getEmail());
-        User savedUpdatedUser = userRepository.save(userToUpdate);
 
-        return UserMapper.toUserDto(savedUpdatedUser);
+        return UserMapper.toUserDto(userRepository.save(userToUpdate));
     }
 
     public String deleteUserById(Long id) {
         userRepository.deleteById(id);
-        return "User deleted";
+        if(userRepository.existsById(id)) {
+            return "User not deleted";
+        }
+
+        return "Successfully deleted user";
     }
 }

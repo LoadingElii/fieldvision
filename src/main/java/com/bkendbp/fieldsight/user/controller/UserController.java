@@ -3,6 +3,7 @@ package com.bkendbp.fieldsight.user.controller;
 import com.bkendbp.fieldsight.user.model.User;
 import com.bkendbp.fieldsight.user.model.UserDto;
 import com.bkendbp.fieldsight.user.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +29,16 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long id) {
-        return new ResponseEntity<UserDto>(userService.getUserById(id), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.valueOf(200));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> createUser(@RequestBody User user) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.valueOf(201));
     }
 
     @PatchMapping("/update/{id}")
     public ResponseEntity<UserDto> updateUserById(@PathVariable("id") Long id, @RequestBody UserDto user) {
-        System.out.println("This is the user: " + user.getEmail() + "  " + user.getUsername());
         return new ResponseEntity<>(userService.updateUserById(id, user), HttpStatus.valueOf(200));
 
     }
