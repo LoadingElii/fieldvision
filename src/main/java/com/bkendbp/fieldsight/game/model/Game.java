@@ -16,10 +16,12 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long externalGameId;
+    private String externalGameId;
     private String homeTeam;
     private String awayTeam;
     private Integer homeScore;
     private Integer awayScore;
-    private Date gameDate;
+    private Integer week;
+    private Integer season;
+    private Date gameDay;
 }

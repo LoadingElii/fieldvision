@@ -9,10 +9,12 @@ import java.util.Date;
 public class GameDto {
     private Long id;
     @JsonIgnore
-    private Long externalGameId;
-    private String homeTeam;
-    private String awayTeam;
-    private Integer homeScore;
-    private Integer awayScore;
-    private Date gameDate;
+    private String game_id;
+    private Integer week;
+    private Integer season;
+    private String home_team;
+    private String away_team;
+    private Integer home_score;
+    private Integer away_score;
+    private Date gameday;
 }

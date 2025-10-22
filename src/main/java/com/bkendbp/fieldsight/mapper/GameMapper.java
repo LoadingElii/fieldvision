@@ -12,11 +12,13 @@ public class GameMapper {
 
         GameDto gameDtoFromGame = new GameDto();
         gameDtoFromGame.setId(game.getId());
-        gameDtoFromGame.setHomeTeam(game.getHomeTeam());
-        gameDtoFromGame.setAwayTeam(game.getAwayTeam());
-        gameDtoFromGame.setHomeScore(game.getHomeScore());
-        gameDtoFromGame.setAwayScore(game.getAwayScore());
-        gameDtoFromGame.setGameDate(game.getGameDate());
+        gameDtoFromGame.setHome_team(game.getHomeTeam());
+        gameDtoFromGame.setAway_team(game.getAwayTeam());
+        gameDtoFromGame.setHome_score(game.getHomeScore());
+        gameDtoFromGame.setAway_score(game.getAwayScore());
+        gameDtoFromGame.setWeek(game.getWeek());
+        gameDtoFromGame.setSeason(game.getSeason());
+        gameDtoFromGame.setGameday(game.getGameDay());
 
         return gameDtoFromGame;
     }
@@ -27,12 +29,14 @@ public class GameMapper {
         }
 
         Game gameFromGameDto = new Game();
-        gameFromGameDto.setExternalGameId(gameDto.getExternalGameId());
-        gameFromGameDto.setHomeTeam(gameDto.getHomeTeam());
-        gameFromGameDto.setAwayTeam(gameDto.getAwayTeam());
-        gameFromGameDto.setHomeScore(gameDto.getHomeScore());
-        gameFromGameDto.setAwayScore(gameDto.getAwayScore());
-        gameFromGameDto.setGameDate(gameDto.getGameDate());
+        gameFromGameDto.setExternalGameId(gameDto.getGame_id());
+        gameFromGameDto.setHomeTeam(gameDto.getHome_team());
+        gameFromGameDto.setAwayTeam(gameDto.getAway_team());
+        gameFromGameDto.setHomeScore(gameDto.getHome_score());
+        gameFromGameDto.setAwayScore(gameDto.getAway_score());
+        gameFromGameDto.setWeek(gameDto.getWeek());
+        gameFromGameDto.setSeason(gameDto.getSeason());
+        gameFromGameDto.setGameDay(gameDto.getGameday());
 
         return gameFromGameDto;
     }
