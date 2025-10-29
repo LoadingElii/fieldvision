@@ -18,7 +18,4 @@ public class Prediction {
     private String awayTeam;
     private Double homeTeamWinProbability;
     private Double awayTeamWinProbability;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 }

@@ -1,6 +1,7 @@
 package com.bkendbp.fieldsight.prediction.controller;
 
 import com.bkendbp.fieldsight.prediction.model.Prediction;
+import com.bkendbp.fieldsight.prediction.model.PredictionDTO;
 import com.bkendbp.fieldsight.prediction.service.PredictionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -23,7 +24,7 @@ public class PredictionController {
      }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Prediction>> getAllPredictions() {
+    public ResponseEntity<List<PredictionDTO>> getAllPredictions() {
          return new ResponseEntity<>(predictionService.getAllPredictions(), HttpStatusCode.valueOf(200));
     }
 

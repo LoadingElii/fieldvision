@@ -8,6 +8,7 @@ import java.util.List;
 
 @FeignClient(name = "game-service", url = "${gameservice.url}" )
 public interface GameServiceClient {
+    
     @GetMapping("/currentweek")
     public List<GameDto> getAllGamesForWeek();
 }

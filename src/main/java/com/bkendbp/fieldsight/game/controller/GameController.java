@@ -35,11 +35,6 @@ public class GameController {
         return new ResponseEntity<>(gameService.updateGameById(id, game), HttpStatus.valueOf(200));
     }
 
-    @PostMapping("/create/game")
-    public ResponseEntity<GameDto> createGame(@RequestBody GameDto game) {
-        return new ResponseEntity<>(gameService.createGame(game), HttpStatus.valueOf(201));
-    }
-
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteGameById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(gameService.deleteGameById(id), HttpStatus.valueOf(200));

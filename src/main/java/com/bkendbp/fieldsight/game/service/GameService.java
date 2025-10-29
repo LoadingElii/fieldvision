@@ -56,16 +56,6 @@ public class GameService {
         return GameMapper.toGameDto(gameRepository.save(gameToUpdate));
     }
 
-    public GameDto createGame(GameDto game) {
-        if(gameRepository.existsById(game.getId())) {
-            throw new ResourceAlreadyExistException("Game with id: " + game.getId() + " already exist.");
-        }
-
-        Game newGame = gameRepository.save(GameMapper.toGame(game));
-
-        return GameMapper.toGameDto(newGame);
-
-    }
 
     public String deleteGameById(Long id) {
         gameRepository.deleteById(id);
