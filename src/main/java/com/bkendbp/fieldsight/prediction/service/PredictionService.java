@@ -28,7 +28,9 @@ public class PredictionService {
     }
 
     public List<PredictionDTO> getAllPredictions() {
-        getPredictionsFromClientAndSave();
+        if(predictionRepository.findAll().isEmpty()) {
+            getPredictionsFromClientAndSave();
+        }
         return predictionRepository.findAll().stream().map(PredictionMapper::toPredictionDTO).toList();
     }
      private void getPredictionsFromClientAndSave(){

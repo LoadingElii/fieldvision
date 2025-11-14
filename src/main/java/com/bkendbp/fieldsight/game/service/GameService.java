@@ -24,14 +24,19 @@ public class GameService {
     }
 
     public List<GameDto> getAllGames() {
-        getGamesFromClientAndSave();
         if(gameRepository.findAll().isEmpty()) {
-          throw new ResourceNotFoundException("No games exist.");
+            getGamesFromClientAndSave();
         }
-       return gameRepository.findAll().stream().map(GameMapper::toGameDto).toList();
+        List<GameDto> allGamesForWeek = gameRepository.findAll().
+                stream().map(GameMapper::toGameDto).toList();
+
+        if (allGamesForWeek.isEmpty()) {
+            throw new ResourceNotFoundException("No Games Found.");
+        }else
+            return allGamesForWeek;
     }
 
-    private void getGamesFromClientAndSave() {
+    private void getGamesFromClientAndSave()  {
         List<GameDto> gamesFromClient = gameServiceClient.getAllGamesForWeek();
         List<Game> games = gamesFromClient.stream().map(GameMapper::toGame).toList();
         gameRepository.saveAll(games);
@@ -48,7 +53,7 @@ public class GameService {
     public GameDto updateGameById(Long id, GameDto game) {
         Game gameToUpdate = gameRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Game with id: " + id + " does not exist."));
+                        new ResourceNotFoundException("Game with id: " + id + " does not found."));
 
         gameToUpdate.setHomeScore(game.getHome_score());
         gameToUpdate.setAwayScore(game.getAway_score());

@@ -10,17 +10,17 @@ public class GameMapper {
             return null;
         }
 
-        GameDto gameDtoFromGame = new GameDto();
-        gameDtoFromGame.setId(game.getId());
-        gameDtoFromGame.setHome_team(game.getHomeTeam());
-        gameDtoFromGame.setAway_team(game.getAwayTeam());
-        gameDtoFromGame.setHome_score(game.getHomeScore());
-        gameDtoFromGame.setAway_score(game.getAwayScore());
-        gameDtoFromGame.setWeek(game.getWeek());
-        gameDtoFromGame.setSeason(game.getSeason());
-        gameDtoFromGame.setGameday(game.getGameDay());
+        GameDto gameDto = new GameDto();
+        gameDto.setId(game.getId());
+        gameDto.setHome_team(game.getHomeTeam());
+        gameDto.setAway_team(game.getAwayTeam());
+        gameDto.setHome_score(game.getHomeScore());
+        gameDto.setAway_score(game.getAwayScore());
+        gameDto.setWeek(game.getWeek());
+        gameDto.setSeason(game.getSeason());
+        gameDto.setGameday(game.getGameDay());
 
-        return gameDtoFromGame;
+        return gameDto;
     }
 
     public static Game toGame(GameDto gameDto) {
@@ -28,17 +28,17 @@ public class GameMapper {
             return null;
         }
 
-        Game gameFromGameDto = new Game();
-        gameFromGameDto.setExternalGameId(gameDto.getGame_id());
-        gameFromGameDto.setHomeTeam(gameDto.getHome_team());
-        gameFromGameDto.setAwayTeam(gameDto.getAway_team());
-        gameFromGameDto.setHomeScore(gameDto.getHome_score());
-        gameFromGameDto.setAwayScore(gameDto.getAway_score());
-        gameFromGameDto.setWeek(gameDto.getWeek());
-        gameFromGameDto.setSeason(gameDto.getSeason());
-        gameFromGameDto.setGameDay(gameDto.getGameday());
+        Game game = new Game();
+        game.setExternalGameId(gameDto.getGame_id());
+        game.setHomeTeam(gameDto.getHome_team());
+        game.setAwayTeam(gameDto.getAway_team());
+        game.setHomeScore(gameDto.getHome_score());
+        game.setAwayScore(gameDto.getAway_score());
+        game.setWeek(gameDto.getWeek());
+        game.setSeason(gameDto.getSeason());
+        game.setGameDay(gameDto.getGameday());
 
-        return gameFromGameDto;
+        return game;
     }
 
 }
