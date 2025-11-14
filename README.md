@@ -1,17 +1,17 @@
-# 🏈 FieldVision – NFL Game Prediction Service
+# FieldVision – NFL Game Prediction Service
 
 **FieldVision** is a backend service built with **Spring Boot** that powers the NFL Game Predictor platform.  
 It communicates with the Python **GameAPI** microservice to fetch real-time NFL data and prediction analytics.
 
 ---
 
-## 🚀 Overview
+## Overview
 FieldVision handles user management, game records, and integrates predictions provided by the FastAPI service `GameAPI`.  
 It’s built as a scalable, modular Java application following clean architecture principles.
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 - **Language:** Java 17  
 - **Framework:** Spring Boot  
 - **Database:** PostgreSQL  
@@ -22,9 +22,9 @@ It’s built as a scalable, modular Java application following clean architectur
 
 ---
 
-## 🧠 Modules & Endpoints
+## Modules & Endpoints
 
-### 🎮 Game Module  
+### Game Module  
 **Base URL:** `/api/v1/games`
 
 | Method | Endpoint | Description |
@@ -52,7 +52,7 @@ It’s built as a scalable, modular Java application following clean architectur
 
 ---
 
-### 🔮 Prediction Module  
+### Prediction Module  
 **Base URL:** `/api/v1/predictions`
 
 | Method | Endpoint | Description |
@@ -75,7 +75,7 @@ It’s built as a scalable, modular Java application following clean architectur
 
 ---
 
-### 👥 User Module  
+### User Module  
 **Base URL:** `/api/v1/users`
 
 | Method | Endpoint | Description |
@@ -99,7 +99,7 @@ It’s built as a scalable, modular Java application following clean architectur
 
 ---
 
-## 🔗 Integration with GameAPI
+## Integration with GameAPI
 FieldVision uses **OpenFeign** to make REST calls to `GameAPI` endpoints for:  
 - Fetching the current week’s games  
 - Fetching win probabilities between two teams  
@@ -111,7 +111,7 @@ gameapi.base-url: http://localhost:8000
 
 ---
 
-## 📦 Setup & Run
+## Setup & Run
 
 ### 1. Clone the repo  
 ```bash
@@ -129,20 +129,20 @@ mvn spring-boot:run
 
 ---
 
-## 🧪 Testing  
+## Testing  
 ```bash
 mvn test
 ```
 
 ---
 
-## 👨🏾‍💻 Author  
+## Author  
 **Delijhia Brown**  
-- [GitHub](https://github.com/elicancode)  
+- [GitHub](https://github.com/LoadingElii)  
 - [LinkedIn](https://linkedin.com/in/delijhia-brown)  
 - [YouTube](https://youtube.com/@elicancode)
 
 ---
 
-## 📄 License  
+## License  
 MIT License
