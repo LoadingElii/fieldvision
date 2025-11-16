@@ -1,9 +1,6 @@
 package com.bkendbp.fieldsight.history.model;
 
-import com.bkendbp.fieldsight.game.model.Game;
-import com.bkendbp.fieldsight.prediction.model.Prediction;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +11,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "History")
 public class History {
-    private Game game;
-    private Prediction prediction;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String homeTeam;
     private String awayTeam;
+    private Integer homeScore;
+    private Integer awayScore;
+    private Double homeWinProbability;
+    private Double awayWinProbability;
 
 }

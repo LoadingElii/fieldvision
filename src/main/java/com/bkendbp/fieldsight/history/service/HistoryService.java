@@ -33,4 +33,8 @@ public class HistoryService {
         return Games.stream()
                 .map(HistoryMapper::toHistoryDto).toList();
     }
+
+    public void saveHistoricalGame(History pastGameAndPred) {
+        historyRepository.save(pastGameAndPred);
+    }
 }

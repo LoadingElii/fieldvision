@@ -25,18 +25,14 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameDto> getGameById(@PathVariable("id") Long id) {
+    public ResponseEntity<GameDto> getGameById(@PathVariable("id") String id) {
         return new ResponseEntity<>(gameService.getGameById(id),HttpStatus.valueOf(200));
     }
 
     @PatchMapping("/update/{id}")
-    public ResponseEntity<GameDto> updateGameById(@PathVariable("id") Long id,
+    public ResponseEntity<GameDto> updateGameById(@PathVariable("id") String id,
                                                   @RequestBody GameDto game) {
         return new ResponseEntity<>(gameService.updateGameById(id, game), HttpStatus.valueOf(200));
     }
 
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteGameById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(gameService.deleteGameById(id), HttpStatus.valueOf(200));
-    }
 }

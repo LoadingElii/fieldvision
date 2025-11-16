@@ -1,10 +1,12 @@
 package com.bkendbp.fieldsight.game.model;
 
+import com.bkendbp.fieldsight.prediction.model.Prediction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -14,9 +16,7 @@ import java.util.Date;
 @Table(name = "games")
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String externalGameId;
+    private String id;
     private String homeTeam;
     private String awayTeam;
     private Integer homeScore;
@@ -24,4 +24,7 @@ public class Game {
     private Integer week;
     private Integer season;
     private Date gameDay;
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
+    private Prediction prediction;
+    private LocalDate createdAt = LocalDate.now();
 }

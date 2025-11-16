@@ -8,5 +8,6 @@ public class HistoryDto {
     private String awayTeam;
     private Integer homeScore;
     private Integer awayScore;
-    private Double housePrediction;
+    private Double homeWinProbability;
+    private Double awayWinProbability;
 }

@@ -1,7 +1,7 @@
 package com.bkendbp.fieldsight.prediction.controller;
 
 import com.bkendbp.fieldsight.prediction.model.Prediction;
-import com.bkendbp.fieldsight.prediction.model.PredictionDTO;
+import com.bkendbp.fieldsight.prediction.model.PredictionDto;
 import com.bkendbp.fieldsight.prediction.service.PredictionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -24,13 +24,15 @@ public class PredictionController {
      }
 
     @GetMapping("/all")
-    public ResponseEntity<List<PredictionDTO>> getAllPredictions() {
-         return new ResponseEntity<>(predictionService.getAllPredictions(), HttpStatusCode.valueOf(200));
+    public ResponseEntity<List<PredictionDto>> getAllPredictions() {
+         return new ResponseEntity<>(predictionService.getAllPredictions(),
+                 HttpStatusCode.valueOf(200));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Prediction> getPredictionById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(predictionService.getPredictionById(id), HttpStatusCode.valueOf(200));
+    public ResponseEntity<PredictionDto> getPredictionById(@PathVariable("id") String id) {
+        return new ResponseEntity<>(predictionService.getPredictionById(id),
+                HttpStatusCode.valueOf(200));
     }
 
 }

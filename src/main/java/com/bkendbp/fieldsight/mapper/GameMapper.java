@@ -11,7 +11,7 @@ public class GameMapper {
         }
 
         GameDto gameDto = new GameDto();
-        gameDto.setId(game.getId());
+        gameDto.setGame_id(game.getId());
         gameDto.setHome_team(game.getHomeTeam());
         gameDto.setAway_team(game.getAwayTeam());
         gameDto.setHome_score(game.getHomeScore());
@@ -29,7 +29,7 @@ public class GameMapper {
         }
 
         Game game = new Game();
-        game.setExternalGameId(gameDto.getGame_id());
+        game.setId(gameDto.getGame_id());
         game.setHomeTeam(gameDto.getHome_team());
         game.setAwayTeam(gameDto.getAway_team());
         game.setHomeScore(gameDto.getHome_score());

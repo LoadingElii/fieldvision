@@ -1,49 +1,74 @@
 package com.bkendbp.fieldsight.prediction.service;
 
 import com.bkendbp.fieldsight.exception.ResourceNotFoundException;
+import com.bkendbp.fieldsight.game.model.Game;
 import com.bkendbp.fieldsight.game.model.GameDto;
+import com.bkendbp.fieldsight.game.service.GameService;
+import com.bkendbp.fieldsight.mapper.GameMapper;
 import com.bkendbp.fieldsight.mapper.PredictionMapper;
 import com.bkendbp.fieldsight.prediction.model.Prediction;
-import com.bkendbp.fieldsight.prediction.model.PredictionDTO;
+import com.bkendbp.fieldsight.prediction.model.PredictionDto;
 import com.bkendbp.fieldsight.prediction.repository.PredictionRepository;
-import com.bkendbp.fieldsight.webclient.GameServiceClient;
 import com.bkendbp.fieldsight.webclient.PredictionServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PredictionService {
     private final PredictionRepository predictionRepository;
     private final PredictionServiceClient predictionServiceClient;
-    private final GameServiceClient gameServiceClient;
+    private final GameService gameService;
 
     @Autowired
     public PredictionService(PredictionRepository predictionRepository,
-                             PredictionServiceClient predictionServiceClient, GameServiceClient gameServiceClient) {
+                             PredictionServiceClient predictionServiceClient,
+                             GameService gameService) {
         this.predictionRepository = predictionRepository;
         this.predictionServiceClient = predictionServiceClient;
-        this.gameServiceClient = gameServiceClient;
+        this.gameService = gameService;
     }
 
-    public List<PredictionDTO> getAllPredictions() {
+    public List<PredictionDto> getAllPredictions() {
         if(predictionRepository.findAll().isEmpty()) {
-            getPredictionsFromClientAndSave();
+            saveAllPredictions();
         }
         return predictionRepository.findAll().stream().map(PredictionMapper::toPredictionDTO).toList();
     }
-     private void getPredictionsFromClientAndSave(){
-         List<GameDto> games = gameServiceClient.getAllGamesForWeek();
-         List<PredictionDTO> predictionDTOS = games.stream().map(game ->
-                 predictionServiceClient.getPredictionForGame(game.getHome_team(),
-                         game.getAway_team())).toList();
-         List<Prediction> predictions = predictionDTOS.stream().map(PredictionMapper::toPrediction).toList();
+     private void saveAllPredictions(){
+         List<Prediction> predictions = getAllPredictionsForGames();
          predictionRepository.saveAll(predictions);
      }
 
-    public Prediction getPredictionById(Long id) {
-        return predictionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No prediction by: " + id + " exist."));
+     public List<Prediction> getAllPredictionsForGames() {
+         List<GameDto> allGames = gameService.getAllGames();
+         List<Game> gamesEntities = allGames.stream().map(GameMapper::toGame).toList();
+
+         Map<String, Game> games =
+                 gamesEntities.stream().collect(Collectors.toMap(Game::getId, g -> g));
+
+         List<PredictionDto> predictionDTOS = allGames.stream().
+                 map(predictionServiceClient::getPredictionForGame).toList();
+
+         return predictionDTOS.stream()
+                 .map((pred) -> {
+                     Prediction prediction = PredictionMapper.toPrediction(pred);
+                     prediction.setGame(games.get(pred.getGame_id()));
+                     return prediction;
+                 }).toList();
+
+     }
+
+    public PredictionDto getPredictionById(String id) {
+        Prediction prediction = predictionRepository.getPredictionById(id);
+        return PredictionMapper.toPredictionDTO(prediction);
+    }
+
+    public void deletePrediction(Prediction prediction) {
+        predictionRepository.delete(prediction);
     }
 }

@@ -7,8 +7,6 @@ import java.util.Date;
 
 @Data
 public class GameDto {
-    private Long id;
-    @JsonIgnore
     private String game_id;
     private Integer week;
     private Integer season;

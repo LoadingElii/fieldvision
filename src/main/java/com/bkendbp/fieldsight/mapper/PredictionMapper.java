@@ -1,16 +1,16 @@
 package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.prediction.model.Prediction;
-import com.bkendbp.fieldsight.prediction.model.PredictionDTO;
+import com.bkendbp.fieldsight.prediction.model.PredictionDto;
 
 public class PredictionMapper {
-    public static PredictionDTO toPredictionDTO(Prediction prediction) {
+    public static PredictionDto toPredictionDTO(Prediction prediction) {
         if(prediction == null) {
             return null;
         }
 
-        PredictionDTO predictionDTO = new PredictionDTO();
-        predictionDTO.setPrediction_id(prediction.getId());
+        PredictionDto predictionDTO = new PredictionDto();
+        predictionDTO.setId(prediction.getId());
         predictionDTO.setHome_team(prediction.getHomeTeam());
         predictionDTO.setAway_team(prediction.getAwayTeam());
         predictionDTO.setHome_win_probability(prediction.getHomeTeamWinProbability());
@@ -19,7 +19,7 @@ public class PredictionMapper {
         return predictionDTO;
     }
 
-    public static Prediction toPrediction(PredictionDTO predictionDto) {
+    public static Prediction toPrediction(PredictionDto predictionDto) {
         if(predictionDto == null) {
             return null;
         }
