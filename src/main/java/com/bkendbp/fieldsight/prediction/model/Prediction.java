@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Prediction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Long id;
     private String homeTeam;
     private String awayTeam;
     private Double homeTeamWinProbability;

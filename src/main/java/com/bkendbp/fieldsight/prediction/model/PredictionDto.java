@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class PredictionDto {
-    private UUID id;
+    private Long id;
     private String game_id;
     private String home_team;
     private String away_team;

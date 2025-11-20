@@ -30,7 +30,7 @@ public class SyncService {
     public void archivePastGames() {
        List<Game> pastGames = gameService.getAllPastGames();
        for (Game game: pastGames) {
-           PredictionDto predictionDto = predictionService.getPredictionById(game.getId());
+           PredictionDto predictionDto = predictionService.getPredictionByGameId(game.getId());
            Prediction prediction = PredictionMapper.toPrediction(predictionDto);
            History history = createHistoryFromPastGameAndPrediction(game, prediction);
            historyService.saveHistoricalGame(history);

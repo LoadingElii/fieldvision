@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -23,8 +24,8 @@ public class Game {
     private Integer awayScore;
     private Integer week;
     private Integer season;
-    private Date gameDay;
+    private LocalDate gameDay;
     @OneToOne(mappedBy = "game", cascade = CascadeType.ALL)
     private Prediction prediction;
-    private LocalDate createdAt = LocalDate.now();
+    private Date createdAt = Date.from(Instant.now());
 }

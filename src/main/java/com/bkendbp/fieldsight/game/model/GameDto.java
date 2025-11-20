@@ -3,7 +3,7 @@ package com.bkendbp.fieldsight.game.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class GameDto {
@@ -14,5 +14,5 @@ public class GameDto {
     private String away_team;
     private Integer home_score;
     private Integer away_score;
-    private Date gameday;
+    private LocalDate gameday;
 }

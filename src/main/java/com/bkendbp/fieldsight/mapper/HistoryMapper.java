@@ -12,16 +12,15 @@ public class HistoryMapper {
         }
 
         Double predictedWinner = getPredictedWinner(
-                history.getPrediction().getHomeTeamWinProbability(),
-                history.getPrediction().getAwayTeamWinProbability()
+                history.getHomeWinProbability(),
+                history.getAwayWinProbability()
         );
 
         HistoryDto historyDto = new HistoryDto();
         historyDto.setHomeTeam(history.getHomeTeam());
         historyDto.setAwayTeam(history.getAwayTeam());
-        historyDto.setHomeScore(history.getGame().getHomeScore());
-        historyDto.setAwayScore(history.getGame().getAwayScore());
-        historyDto.setHousePrediction(predictedWinner);
+        historyDto.setHomeScore(history.getHomeScore());
+        historyDto.setAwayScore(history.getAwayScore());
 
         return historyDto;
     }

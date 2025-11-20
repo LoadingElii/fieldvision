@@ -28,11 +28,11 @@ public class HistoryController {
                 HttpStatusCode.valueOf(200));
     }
 
-    @GetMapping("team/{teamName}")
-    public ResponseEntity<HistoryDto> getHistoricalGame(@PathVariable("teamName") String teamName) {
-        return new ResponseEntity<>(historyService.getHistoricalGameByTeam(teamName),
-                HttpStatusCode.valueOf(200));
-    }
+////    @GetMapping("team/{teamName}")
+////    public ResponseEntity<HistoryDto> getHistoricalGame(@PathVariable("teamName") String teamName) {
+////        return new ResponseEntity<>(historyService.getHistoricalGameByTeam(teamName),
+////                HttpStatusCode.valueOf(200));
+//    }
 
 
 }

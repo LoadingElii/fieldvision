@@ -52,7 +52,10 @@ public class PredictionService {
                  gamesEntities.stream().collect(Collectors.toMap(Game::getId, g -> g));
 
          List<PredictionDto> predictionDTOS = allGames.stream().
-                 map(predictionServiceClient::getPredictionForGame).toList();
+                 map((game) -> {
+                     return predictionServiceClient.getPredictionForGame(game.getGame_id(),
+                             game.getHome_team(), game.getAway_team());
+                 }).toList();
 
          return predictionDTOS.stream()
                  .map((pred) -> {
@@ -63,8 +66,8 @@ public class PredictionService {
 
      }
 
-    public PredictionDto getPredictionById(String id) {
-        Prediction prediction = predictionRepository.getPredictionById(id);
+    public PredictionDto getPredictionByGameId(String id) {
+        Prediction prediction = predictionRepository.getPredictionByGameId(id);
         return PredictionMapper.toPredictionDTO(prediction);
     }
 

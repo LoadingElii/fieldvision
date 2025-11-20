@@ -31,7 +31,7 @@ public class PredictionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PredictionDto> getPredictionById(@PathVariable("id") String id) {
-        return new ResponseEntity<>(predictionService.getPredictionById(id),
+        return new ResponseEntity<>(predictionService.getPredictionByGameId(id),
                 HttpStatusCode.valueOf(200));
     }
 

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PredictionRepository extends JpaRepository<Prediction, Long> {
-    public Prediction getPredictionById(String id);
+    public Prediction getPredictionByGameId(String id);
 }
