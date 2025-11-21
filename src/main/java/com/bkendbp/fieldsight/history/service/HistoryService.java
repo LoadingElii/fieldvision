@@ -19,10 +19,10 @@ public class HistoryService {
         this.historyRepository = historyRepository;
     }
 
-//    public HistoryDto getHistoricalGameByTeam(String team) {
-//        History historicalGame = historyRepository.findHistoryByTeamName(team);
-//        return HistoryMapper.toHistoryDto(historicalGame);
-//    }
+    public HistoryDto getHistoricalGameByTeam(String team) {
+        History historicalGame = historyRepository.findHistoryByTeamName(team);
+        return HistoryMapper.toHistoryDto(historicalGame);
+    }
 
     public List<HistoryDto> getAllHistoricalGames() {
         List<History> Games = historyRepository.findAll();

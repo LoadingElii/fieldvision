@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
-//    @Query(value = "SELECT h FROM history WHERE h.homeTeam = :teamName OR h.awayTeam = :teamName")
-//    History findHistoryByTeamName(@Param("teamName") String teamName);
+    @Query("SELECT h FROM History h WHERE " +
+            "h.homeTeam = :teamName OR h.awayTeam = :teamName")
+    History findHistoryByTeamName(@Param("teamName") String teamName);
 }
