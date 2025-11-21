@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface GameRepository extends JpaRepository<Game, String> {
-    public List<Game> findByGameDayBefore( LocalDate today);
+    @Query("SELECT g FROM Game g WHERE g.gameDay < :today")
+    public List<Game> findByGameDayBefore(@Param("today") LocalDate today);
     public Game getGameById(String id);
 }
