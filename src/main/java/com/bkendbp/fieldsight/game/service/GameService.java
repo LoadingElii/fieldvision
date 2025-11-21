@@ -54,7 +54,7 @@ public class GameService {
     public List<Game> getAllPastGames() {
         List<Game> Games = gameRepository.findByGameDayBefore(LocalDate.now());
         if(Games.isEmpty()) {
-git             throw new ResourceNotFoundException("No past games found.");
+            throw new ResourceNotFoundException("No past games found.");
         } else
             return Games;
     }
