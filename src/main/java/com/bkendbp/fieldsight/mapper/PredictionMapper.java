@@ -11,6 +11,7 @@ public class PredictionMapper {
 
         PredictionDto predictionDTO = new PredictionDto();
         predictionDTO.setId(prediction.getId());
+        predictionDTO.setGame_id(prediction.getGame().getId());
         predictionDTO.setHome_team(prediction.getHomeTeam());
         predictionDTO.setAway_team(prediction.getAwayTeam());
         predictionDTO.setHome_win_probability(prediction.getHomeTeamWinProbability());
