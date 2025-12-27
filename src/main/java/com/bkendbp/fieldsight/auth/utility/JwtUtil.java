@@ -15,11 +15,12 @@ public class JwtUtil {
 
     public String generateToken(String username) {
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12))
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12))
+                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
                 .compact();
+
     }
 
     public String extractUsername(String token) {
@@ -33,10 +34,10 @@ public class JwtUtil {
         return getClaims(token).getExpiration().before(new Date());
      }
     public Claims getClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
+        return Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }

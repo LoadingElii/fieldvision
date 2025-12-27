@@ -2,6 +2,8 @@ package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.user.model.User;
 import com.bkendbp.fieldsight.user.model.UserDto;
+import com.bkendbp.fieldsight.auth.config.PasswordConfig;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {
 
@@ -18,14 +20,14 @@ public class UserMapper {
 
     }
     public static User toUser(UserDto userDto) {
+
         if(userDto == null) {
             return null;
         }
         User User = new User();
         User.setUsername(userDto.getUsername());
         User.setEmail(userDto.getEmail());
-        User.setPassword(userDto.getPassword());
-
+        User.setPassword(PasswordConfig.passwordEncoder(userDto.getPassword()).toString());
         return User;
 
     }
