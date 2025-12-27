@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {
 
-    public static UserDto toUserDto(User user) {
+    public UserDto toUserDto(User user) {
         if(user == null) {
             return null;
         }
@@ -19,7 +19,7 @@ public class UserMapper {
         return UserDto;
 
     }
-    public static User toUser(UserDto userDto) {
+    public User toUser(UserDto userDto, PasswordEncoder passwordEncoder) {
 
         if(userDto == null) {
             return null;
@@ -27,7 +27,7 @@ public class UserMapper {
         User User = new User();
         User.setUsername(userDto.getUsername());
         User.setEmail(userDto.getEmail());
-        User.setPassword(PasswordConfig.passwordEncoder(userDto.getPassword()).toString());
+        User.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return User;
 
     }

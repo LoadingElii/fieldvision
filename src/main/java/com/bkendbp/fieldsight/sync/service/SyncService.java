@@ -8,6 +8,7 @@ import com.bkendbp.fieldsight.mapper.PredictionMapper;
 import com.bkendbp.fieldsight.prediction.model.Prediction;
 import com.bkendbp.fieldsight.prediction.model.PredictionDto;
 import com.bkendbp.fieldsight.prediction.service.PredictionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,20 +19,23 @@ public class SyncService {
     private final GameService gameService;
     private final PredictionService predictionService;
     private final HistoryService historyService;
+    private final PredictionMapper predictionMapper;
 
+    @Autowired
     public SyncService(GameService gameService,
                        PredictionService predictionService,
-                       HistoryService historyService) {
+                       HistoryService historyService, PredictionMapper predictionMapper) {
         this.gameService = gameService;
         this.predictionService = predictionService;
         this.historyService = historyService;
+        this.predictionMapper = predictionMapper;
     }
 
     public void archivePastGames() {
        List<Game> pastGames = gameService.getAllPastGames();
        for (Game game: pastGames) {
            PredictionDto predictionDto = predictionService.getPredictionByGameId(game.getId());
-           Prediction prediction = PredictionMapper.toPrediction(predictionDto);
+           Prediction prediction = predictionMapper.toPrediction(predictionDto);
            History history = createHistoryFromPastGameAndPrediction(game, prediction);
            historyService.saveHistoricalGame(history);
            deletePastGame(game);

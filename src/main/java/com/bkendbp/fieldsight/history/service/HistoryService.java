@@ -13,15 +13,17 @@ import java.util.List;
 @Service
 public class HistoryService {
     private final HistoryRepository historyRepository;
+    private final HistoryMapper historyMapper;
 
     @Autowired
-    public HistoryService(HistoryRepository historyRepository) {
+    public HistoryService(HistoryRepository historyRepository, HistoryMapper historyMapper) {
         this.historyRepository = historyRepository;
+        this.historyMapper = historyMapper;
     }
 
     public HistoryDto getHistoricalGameByTeam(String team) {
         History historicalGame = historyRepository.findHistoryByTeamName(team);
-        return HistoryMapper.toHistoryDto(historicalGame);
+        return historyMapper.toHistoryDto(historicalGame);
     }
 
     public List<HistoryDto> getAllHistoricalGames() {
@@ -31,10 +33,10 @@ public class HistoryService {
         }
 
         return Games.stream()
-                .map(HistoryMapper::toHistoryDto).toList();
+                .map(historyMapper::toHistoryDto).toList();
     }
 
-    public void saveHistoricalGame(History pastGameAndPred) {
-        historyRepository.save(pastGameAndPred);
+    public void saveHistoricalGame(History pastGameAndPrediction) {
+        historyRepository.save(pastGameAndPrediction);
     }
 }

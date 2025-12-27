@@ -16,11 +16,13 @@ import java.util.List;
 public class GameService {
     private final GameRepository gameRepository;
     private final GameServiceClient gameServiceClient;
+    private final GameMapper gameMapper;
 
     @Autowired
-    public GameService(GameRepository gameRepository, GameServiceClient gameServiceClient) {
+    public GameService(GameRepository gameRepository, GameServiceClient gameServiceClient, GameMapper gameMapper) {
         this.gameRepository = gameRepository;
         this.gameServiceClient = gameServiceClient;
+        this.gameMapper = gameMapper;
     }
 
     public List<GameDto> getAllGames() {
@@ -28,7 +30,7 @@ public class GameService {
             getGamesFromClientAndSave();
         }
         List<GameDto> allGamesForWeek = gameRepository.findAll().
-                stream().map(GameMapper::toGameDto).toList();
+                stream().map(gameMapper::toGameDto).toList();
 
         if (allGamesForWeek.isEmpty()) {
             throw new ResourceNotFoundException("No Games Found.");
@@ -38,7 +40,7 @@ public class GameService {
 
     private void getGamesFromClientAndSave()  {
         List<GameDto> gamesFromClient = gameServiceClient.getAllGamesForWeek();
-        List<Game> games = gamesFromClient.stream().map(GameMapper::toGame).toList();
+        List<Game> games = gamesFromClient.stream().map(gameMapper::toGame).toList();
         gameRepository.saveAll(games);
     }
 
@@ -48,7 +50,7 @@ public class GameService {
         if(game.getId().isEmpty()){
             throw new ResourceNotFoundException("Game with id: " + id + " does not found.");
         }
-        return GameMapper.toGameDto(game);
+        return gameMapper.toGameDto(game);
     }
 
     public List<Game> getAllPastGames() {
@@ -69,7 +71,7 @@ public class GameService {
         gameToUpdate.setHomeScore(game.getHome_score());
         gameToUpdate.setAwayScore(game.getAway_score());
 
-        return GameMapper.toGameDto(gameRepository.save(gameToUpdate));
+        return gameMapper.toGameDto(gameRepository.save(gameToUpdate));
     }
 
 

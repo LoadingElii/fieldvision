@@ -6,22 +6,23 @@ import com.bkendbp.fieldsight.mapper.UserMapper;
 import com.bkendbp.fieldsight.user.model.User;
 import com.bkendbp.fieldsight.user.model.UserDto;
 import com.bkendbp.fieldsight.user.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private Long id;
-    private UserDto user;
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserDto> getAllUsers() {
@@ -30,14 +31,14 @@ public class UserService {
         }
         return userRepository.findAll()
                 .stream()
-                .map(UserMapper::toUserDto)
+                .map(userMapper::toUserDto)
                 .toList();
     }
 
     public UserDto getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " does not exist."));
-        return UserMapper.toUserDto(user);
+        return userMapper.toUserDto(user);
     }
 
     public UserDto createUser(UserDto user) {
@@ -45,9 +46,9 @@ public class UserService {
             throw new EmailAlreadyExistException("User already exist with email: " + user.getEmail() +".");
         }
 
-        User newUser = userRepository.save(UserMapper.toUser(user));
+        User newUser = userRepository.save(userMapper.toUser(user, passwordEncoder));
 
-        return UserMapper.toUserDto(newUser);
+        return userMapper.toUserDto(newUser);
     }
 
     public UserDto updateUserById(Long id, UserDto user) {
@@ -59,7 +60,7 @@ public class UserService {
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setEmail(user.getEmail());
 
-        return UserMapper.toUserDto(userRepository.save(userToUpdate));
+        return userMapper.toUserDto(userRepository.save(userToUpdate));
     }
 
     public String deleteUserById(Long id) {

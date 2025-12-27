@@ -23,21 +23,25 @@ public class PredictionService {
     private final PredictionRepository predictionRepository;
     private final PredictionServiceClient predictionServiceClient;
     private final GameService gameService;
+    private final PredictionMapper predictionMapper;
+    private final GameMapper gameMapper;
 
     @Autowired
     public PredictionService(PredictionRepository predictionRepository,
                              PredictionServiceClient predictionServiceClient,
-                             GameService gameService) {
+                             GameService gameService, PredictionMapper predictionMapper, GameMapper gameMapper) {
         this.predictionRepository = predictionRepository;
         this.predictionServiceClient = predictionServiceClient;
         this.gameService = gameService;
+        this.predictionMapper = predictionMapper;
+        this.gameMapper = gameMapper;
     }
 
     public List<PredictionDto> getAllPredictions() {
         if(predictionRepository.findAll().isEmpty()) {
             saveAllPredictions();
         }
-        return predictionRepository.findAll().stream().map(PredictionMapper::toPredictionDTO).toList();
+        return predictionRepository.findAll().stream().map(predictionMapper::toPredictionDTO).toList();
     }
      private void saveAllPredictions(){
          List<Prediction> predictions = getAllPredictionsForGames();
@@ -46,7 +50,7 @@ public class PredictionService {
 
      public List<Prediction> getAllPredictionsForGames() {
          List<GameDto> allGames = gameService.getAllGames();
-         List<Game> gamesEntities = allGames.stream().map(GameMapper::toGame).toList();
+         List<Game> gamesEntities = allGames.stream().map(gameMapper::toGame).toList();
 
          Map<String, Game> games =
                  gamesEntities.stream().collect(Collectors.toMap(Game::getId, g -> g));
@@ -59,7 +63,7 @@ public class PredictionService {
 
          return predictionDTOS.stream()
                  .map((pred) -> {
-                     Prediction prediction = PredictionMapper.toPrediction(pred);
+                     Prediction prediction = predictionMapper.toPrediction(pred);
                      prediction.setGame(games.get(pred.getGame_id()));
                      return prediction;
                  }).toList();
@@ -68,7 +72,7 @@ public class PredictionService {
 
     public PredictionDto getPredictionByGameId(String id) {
         Prediction prediction = predictionRepository.getPredictionByGameId(id);
-        return PredictionMapper.toPredictionDTO(prediction);
+        return predictionMapper.toPredictionDTO(prediction);
     }
 
     public void deletePrediction(Prediction prediction) {

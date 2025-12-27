@@ -6,7 +6,7 @@ import com.bkendbp.fieldsight.history.model.HistoryDto;
 
 public class HistoryMapper {
 
-    public static HistoryDto toHistoryDto(History history) {
+    public HistoryDto toHistoryDto(History history) {
         if (history == null) {
             return null;
         }
@@ -25,7 +25,7 @@ public class HistoryMapper {
         return historyDto;
     }
 
-    private static Double getPredictedWinner(Double homePossibility, Double awayPossibility) {
+    private Double getPredictedWinner(Double homePossibility, Double awayPossibility) {
         if (homePossibility > awayPossibility) {
             return homePossibility;
         } else

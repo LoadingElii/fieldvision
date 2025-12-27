@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PasswordConfig {
 
     @Bean
-    public static PasswordEncoder passwordEncoder(@Size(message = "Password must contain at least 6 characters.") String password) {
+    public PasswordEncoder passwordEncoder(String password) {
         return new BCryptPasswordEncoder();
     }
 }

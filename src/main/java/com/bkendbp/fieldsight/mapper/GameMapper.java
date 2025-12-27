@@ -5,7 +5,7 @@ import com.bkendbp.fieldsight.game.model.GameDto;
 
 public class GameMapper {
 
-    public static GameDto toGameDto(Game game) {
+    public GameDto toGameDto(Game game) {
         if(game == null) {
             return null;
         }
@@ -23,7 +23,7 @@ public class GameMapper {
         return gameDto;
     }
 
-    public static Game toGame(GameDto gameDto) {
+    public Game toGame(GameDto gameDto) {
         if(gameDto == null) {
             return null;
         }

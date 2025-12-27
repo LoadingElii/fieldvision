@@ -4,7 +4,7 @@ import com.bkendbp.fieldsight.prediction.model.Prediction;
 import com.bkendbp.fieldsight.prediction.model.PredictionDto;
 
 public class PredictionMapper {
-    public static PredictionDto toPredictionDTO(Prediction prediction) {
+    public PredictionDto toPredictionDTO(Prediction prediction) {
         if(prediction == null) {
             return null;
         }
@@ -20,7 +20,7 @@ public class PredictionMapper {
         return predictionDTO;
     }
 
-    public static Prediction toPrediction(PredictionDto predictionDto) {
+    public Prediction toPrediction(PredictionDto predictionDto) {
         if(predictionDto == null) {
             return null;
         }
