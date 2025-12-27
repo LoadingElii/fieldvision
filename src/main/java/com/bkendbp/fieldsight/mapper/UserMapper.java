@@ -2,7 +2,6 @@ package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.user.model.User;
 import com.bkendbp.fieldsight.user.model.UserDto;
-import com.bkendbp.fieldsight.auth.config.PasswordConfig;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserMapper {

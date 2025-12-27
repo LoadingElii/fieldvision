@@ -3,7 +3,6 @@ package com.bkendbp.fieldsight.auth.controller;
 import com.bkendbp.fieldsight.auth.utility.JwtUtil;
 import com.bkendbp.fieldsight.dto.JwtResponse;
 import com.bkendbp.fieldsight.dto.LoginRequest;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> userLogin(@RequestBody(required = true) LoginRequest loginRequest) {
+    public ResponseEntity<JwtResponse> userLogin(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.username(),
