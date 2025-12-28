@@ -3,7 +3,9 @@ package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.history.model.History;
 import com.bkendbp.fieldsight.history.model.HistoryDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HistoryMapper {
 
     public HistoryDto toHistoryDto(History history) {

@@ -45,8 +45,10 @@ public class UserService {
         if(userRepository.existsByEmail(user.getEmail())) {
             throw new EmailAlreadyExistException("User already exist with email: " + user.getEmail() +".");
         }
-
-        User newUser = userRepository.save(userMapper.toUser(user, passwordEncoder));
+        User newUser = userMapper.toUser(user);
+        System.out.println("Here is the" + user.getPassword());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(newUser);
 
         return userMapper.toUserDto(newUser);
     }
@@ -55,7 +57,8 @@ public class UserService {
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " does not exist."));
         if(user.getPassword() != null) {
-           userToUpdate.setPassword(user.getPassword());
+
+           userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setEmail(user.getEmail());

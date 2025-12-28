@@ -14,6 +14,5 @@ public class UserDto {
     @Email(message = "Please provide an proper email.")
     private String email;
     @Size(message = "Password must contain at least 6 characters.")
-    @JsonIgnore
     private String password;
 }

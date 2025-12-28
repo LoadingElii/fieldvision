@@ -24,14 +24,12 @@ public class HistoryController {
 
     @GetMapping("/all")
     public ResponseEntity<List<HistoryDto>> getAllHistoricalGames(){
-        return new ResponseEntity<>(historyService.getAllHistoricalGames(),
-                HttpStatusCode.valueOf(200));
+        return ResponseEntity.ok(historyService.getAllHistoricalGames());
     }
 
     @GetMapping("team/{teamName}")
     public ResponseEntity<HistoryDto> getHistoricalGame(@PathVariable("teamName") String teamName) {
-        return new ResponseEntity<>(historyService.getHistoricalGameByTeam(teamName),
-                HttpStatusCode.valueOf(200));
+        return ResponseEntity.ok(historyService.getHistoricalGameByTeam(teamName));
     }
 
 

@@ -2,8 +2,9 @@ package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.user.model.User;
 import com.bkendbp.fieldsight.user.model.UserDto;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public UserDto toUserDto(User user) {
@@ -18,7 +19,7 @@ public class UserMapper {
         return UserDto;
 
     }
-    public User toUser(UserDto userDto, PasswordEncoder passwordEncoder) {
+    public User toUser(UserDto userDto) {
 
         if(userDto == null) {
             return null;
@@ -26,7 +27,6 @@ public class UserMapper {
         User User = new User();
         User.setUsername(userDto.getUsername());
         User.setEmail(userDto.getEmail());
-        User.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return User;
 
     }

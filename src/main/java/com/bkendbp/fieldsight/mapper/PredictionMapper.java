@@ -2,7 +2,9 @@ package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.prediction.model.Prediction;
 import com.bkendbp.fieldsight.prediction.model.PredictionDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PredictionMapper {
     public PredictionDto toPredictionDTO(Prediction prediction) {
         if(prediction == null) {

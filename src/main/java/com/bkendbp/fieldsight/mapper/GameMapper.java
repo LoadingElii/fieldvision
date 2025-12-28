@@ -2,7 +2,11 @@ package com.bkendbp.fieldsight.mapper;
 
 import com.bkendbp.fieldsight.game.model.Game;
 import com.bkendbp.fieldsight.game.model.GameDto;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GameMapper {
 
     public GameDto toGameDto(Game game) {

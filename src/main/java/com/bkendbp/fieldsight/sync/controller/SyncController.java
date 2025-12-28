@@ -20,8 +20,7 @@ public class SyncController {
     @PostMapping("/refresh")
     public ResponseEntity<String> refreshGamesAndPredictions(@RequestBody String message) {
         syncService.archivePastGames();
-        return new ResponseEntity<>(message,
-                HttpStatus.valueOf(200));
+        return ResponseEntity.ok(message);
 
     }
 }

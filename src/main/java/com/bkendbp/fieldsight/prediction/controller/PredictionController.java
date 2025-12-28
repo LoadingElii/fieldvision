@@ -25,14 +25,12 @@ public class PredictionController {
 
     @GetMapping("/all")
     public ResponseEntity<List<PredictionDto>> getAllPredictions() {
-         return new ResponseEntity<>(predictionService.getAllPredictions(),
-                 HttpStatusCode.valueOf(200));
+         return ResponseEntity.ok(predictionService.getAllPredictions());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PredictionDto> getPredictionById(@PathVariable("id") String id) {
-        return new ResponseEntity<>(predictionService.getPredictionByGameId(id),
-                HttpStatusCode.valueOf(200));
-    }
+        return ResponseEntity.ok(predictionService.getPredictionByGameId(id));
+     }
 
 }
